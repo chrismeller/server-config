@@ -1,0 +1,9 @@
+server {
+	listen [::]:443 default_server ssl;
+
+	ssl on;
+	ssl_certificate ssl/doesnthaveone.com.pem;
+	ssl_certificate_key ssl/doesnthaveone.com.key;
+
+	rewrite ^ https://nx06.doesnthaveone.com$request_uri?;
+}
