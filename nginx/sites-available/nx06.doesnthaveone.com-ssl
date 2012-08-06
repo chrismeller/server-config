@@ -1,0 +1,31 @@
+server {
+	listen [::]:443 ssl;
+	server_name nx06.doesnthaveone.com;
+
+	ssl on;
+	ssl_certificate ssl/doesnthaveone.com.pem;
+	ssl_certificate_key ssl/doesnthaveone.com.key;
+
+	root /home/chris/public_html/nx06.doesnthaveone.com/ssl;
+
+	access_log /home/chris/public_html/nx06.doesnthaveone.com/logs/ssl.access.log;
+	error_log /home/chris/public_html/nx06.doesnthaveone.com/logs/ssl.error.log;
+
+	include fastcgi_params;
+
+	location / {
+		try_files $uri $uri/ /index.php;
+	}
+
+	location /status {
+		fastcgi_pass php;
+	}
+
+	location /ping {
+		fastcgi_pass php;
+	}
+
+	location ~ \.php$ {
+		fastcgi_pass php;
+	}
+}
